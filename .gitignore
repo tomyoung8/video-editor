@@ -1,0 +1,16 @@
+# Big media files stay on the Mac, not in git
+*.mp4
+*.mov
+*.m4v
+*.wav
+*.mp3
+*.png
+*.jpg
+!brand/logo.png
+videos/*/footage/
+
+# Remotion
+tools/graphics/node_modules/
+tools/graphics/out/
+
+.DS_Store
