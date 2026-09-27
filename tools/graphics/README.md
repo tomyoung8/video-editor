@@ -23,3 +23,6 @@ background; pair it with `--opaque` to get an `.mp4`).
 
 Colours and fonts live in `src/brand.ts` — keep it in sync with `brand/brand.md`.
 All text stays inside the Instagram/TikTok safe zone (`SAFE` in `src/shared.tsx`).
+
+If Remotion can't download its browser (e.g. in a locked-down cloud session), point it at an
+existing Chrome/Chromium: `REMOTION_BROWSER=/path/to/chrome tools/graphics/render.sh ...`

@@ -4,8 +4,9 @@ import { BaseProps, FPS, HEIGHT, WIDTH } from "./shared";
 import { CtaCard, LogoIntro, LogoOutro, LowerThird, StatCard, TextPopup, TitleCard } from "./templates";
 
 // Length comes from the `seconds` prop, so each render can be a different length.
-const fromSeconds: CalculateMetadataFunction<BaseProps> = ({ props }) => ({
-  durationInFrames: Math.round(props.seconds * FPS),
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fromSeconds: CalculateMetadataFunction<any> = ({ props }) => ({
+  durationInFrames: Math.round((props as BaseProps).seconds * FPS),
 });
 
 const common = { fps: FPS, width: WIDTH, height: HEIGHT, durationInFrames: 90, calculateMetadata: fromSeconds };

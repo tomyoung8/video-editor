@@ -24,16 +24,20 @@ out_abs="$(cd "$(dirname "$out")" && pwd)/$(basename "$out")"
 still="${out_abs%.*}-check.png"
 
 cd "$here"
+# Optional: REMOTION_BROWSER=/path/to/chrome uses an existing browser instead of downloading one.
+browser=()
+[[ -n "${REMOTION_BROWSER:-}" ]] && browser=(--browser-executable="$REMOTION_BROWSER")
+
 if [[ "$opaque" == "--opaque" ]]; then
-  npx remotion render "$template" "$out_abs" --props="$props" \
+  npx remotion render "$template" "$out_abs" --props="$props" "${browser[@]}" \
     --codec=h264 --pixel-format=yuv420p --image-format=jpeg --crf=16
 else
-  npx remotion render "$template" "$out_abs" --props="$props"
+  npx remotion render "$template" "$out_abs" --props="$props" "${browser[@]}" --prores-profile=4444
 fi
 
 seconds=$(jq -r '.seconds // 3' <<<"$props")
 mid=$(awk -v s="$seconds" 'BEGIN { printf "%d", s * 30 / 2 }')
-npx remotion still "$template" "$still" --props="$props" --frame="$mid"
+npx remotion still "$template" "$still" --props="$props" --frame="$mid" "${browser[@]}"
 
 echo "Rendered: $out_abs"
 echo "Check frame: $still"
